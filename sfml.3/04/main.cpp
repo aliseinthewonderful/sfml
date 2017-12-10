@@ -5,21 +5,21 @@
 
 float toGrees(float radians){ return float(double(radians) * 180.0 / M_PI); }
 
-constexpr float WidthEye = 70;			 //ширина глаза
-constexpr float HeightEye = 50;			 //высота глаза
-constexpr float RadiusPupil = 15;		 //Радиус зрачок
-constexpr float DistBetEyeAndPupil = 20; //дистанция от края глаза до центра зрачка
-constexpr float DistanceBetweenEye = 50; //дистанция между глазами
-constexpr float Points = 100;			 //кол-во точек элипса
-constexpr unsigned WINDOW_WIDTH = 800;   //ширина окна
-constexpr unsigned WINDOW_HEIGHT = 600;  //высота окна
-const sf::Color ColorApple = sf::Color(0xFF, 0XFF, 0XFF);  //цвет яблока глазного
-const sf::Color ColorPupil = sf::Color(0x0, 0XCC, 0XFF);  //зрачка глазного цвет это ©Йода
+constexpr float WidthEye = 70;			 
+constexpr float HeightEye = 50;			 
+constexpr float RadiusPupil = 15;		 
+constexpr float DistBetEyeAndPupil = 20; 
+constexpr float DistanceBetweenEye = 50; 
+constexpr float Points = 100;			 
+constexpr unsigned WINDOW_WIDTH = 800;   
+constexpr unsigned WINDOW_HEIGHT = 600;  
+const sf::Color ColorApple = sf::Color(0xFF, 0XFF, 0XFF);  
+const sf::Color ColorPupil = sf::Color(0x0, 0XCC, 0XFF);  
 
 struct Eye{
-	sf::ConvexShape eyeApple; //"глазное яблоко"
-	sf::CircleShape eyePupil; //"зрачок"
-	sf::Vector2f position;	//позиция глаза
+	sf::ConvexShape eyeApple; 
+	sf::CircleShape eyePupil; 
+	sf::Vector2f position;	
 
 	void init(sf::Vector2f position,sf::Vector2f size);
 	void draw(sf::RenderWindow &window);
@@ -54,16 +54,16 @@ void Eye::draw(sf::RenderWindow &window)
 
 void Eye::init(sf::Vector2f position,sf::Vector2f size)
 {
-	this->eyeApple.setPosition(position); //позиция "глазного яблока"
-	this->position = position;		//установка позиции глаза, чтобы знать вокруг чего вращаться
-	this->eyeApple.setPointCount(Points); //кол-во вершин глаза
+	this->eyeApple.setPosition(position); 
+	this->position = position;		
+	this->eyeApple.setPointCount(Points); 
 	for (int pointNo = 0; pointNo < Points; ++pointNo)
 	{
-		float angle = float(2 * M_PI * pointNo) / float(Points);	 //угол точки для элипса
-		sf::Vector2f point = sf::Vector2f{							 //позиция точки
-			size.x * std::cos(angle),  //позиция по x
-			size.y * std::sin(angle)}; //позиция по y
-		this->eyeApple.setPoint(pointNo, point);//установка точки
+		float angle = float(2 * M_PI * pointNo) / float(Points);	 
+		sf::Vector2f point = sf::Vector2f{							
+			size.x * std::cos(angle),  
+			size.y * std::sin(angle)}; 
+		this->eyeApple.setPoint(pointNo, point);
 	}
 	this->eyePupil.setRadius(RadiusPupil);
 	this->eyePupil.setOrigin(RadiusPupil, RadiusPupil);									  
@@ -72,12 +72,12 @@ void Eye::init(sf::Vector2f position,sf::Vector2f size)
 	this->eyePupil.setFillColor(ColorPupil);
 }
 
-void onMouseMove(const sf::Event::MouseMoveEvent &event, sf::Vector2f &mousePosition) //функция получения/сохранения координат мыши
+void onMouseMove(const sf::Event::MouseMoveEvent &event, sf::Vector2f &mousePosition) 
 {
-	mousePosition = {float(event.x), float(event.y)}; //
+	mousePosition = {float(event.x), float(event.y)}; 
 }
 
-void pollEvents(sf::RenderWindow &window, sf::Vector2f &mousePosition) //основной цикл программы
+void pollEvents(sf::RenderWindow &window, sf::Vector2f &mousePosition) 
 {
 	sf::Event event;
 	while (window.pollEvent(event))
@@ -87,8 +87,8 @@ void pollEvents(sf::RenderWindow &window, sf::Vector2f &mousePosition) //осн�
 		case sf::Event::Closed:
 			window.close();
 			break;
-		case sf::Event::MouseMoved:						 //если пользователь двинул мышь
-			onMouseMove(event.mouseMove, mousePosition); //сохраняем координаты
+		case sf::Event::MouseMoved:						
+			onMouseMove(event.mouseMove, mousePosition); 
 			break;
 		default:
 			break;
